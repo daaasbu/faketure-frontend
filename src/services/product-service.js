@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 
-const baseUrl = 'http://23.99.252.164/product/products';
+const baseUrl = 'https://faketure-aks-ingress.centralus.cloudapp.azure.com/product/products';
 
 const getProducts = async (page, size) => {
     const url = (page && size) ? `${baseUrl}/${page}/${size}` : baseUrl;

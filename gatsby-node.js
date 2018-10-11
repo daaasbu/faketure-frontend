@@ -13,7 +13,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => 
     const { createNode } = actions;
     try {
         const res = await getProducts();
-
+        console.log(res);
         res.data
             .filter(product => product.features)
             .map((product, i) => {

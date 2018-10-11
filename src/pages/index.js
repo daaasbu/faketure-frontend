@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Link } from 'gatsby'
+
 import { ProductPreview } from '../components/ProductPreview';
 import Layout from '../components/layout'
 import { GridList } from 'react-md';
 import './index.scss'
 
-const { getCartBy } = require('../services/cart-service');
+const { getCartBy, postCart } = require('../services/cart-service');
 const uuidv4 = require('uuid/v4');
+
 
 
 class IndexPage extends Component {
@@ -21,19 +22,23 @@ class IndexPage extends Component {
   componentDidMount() {
     let sessionId;
     if (sessionStorage) {
-      sessionId = sessionStorage.getItem('sesionId');
+      sessionId = sessionStorage.getItem('sessionId');
+      
+      if (sessionId === null) {
+        sessionId = uuidv4().split('-').join('');
+      
+        sessionStorage.setItem('sessionId', sessionId);
+      }
     }
-    const isNewSession = (sessionStorage && sessionId);
 
-    if (isNewSession) {
-      sessionId = new uuidv4();
-      sessionStorage.setItem('sessionId', sessionId);
-    }
-
-    const cartPromise = isNewSession ? new Promise(resolve => resolve({ count: 0, cart: new Map(), sessionId })) : getCartBy(sessionId);
-    cartPromise.then(cart => {
-      console.log(cart);
-      this.setState(cart);
+    getCartBy(sessionId).then(res => {
+      if (res.data && res.data.length === 0) {
+        this.setState({ count: 0, cart: new Map(), sessionId });
+      } else {
+        const item = res.data[0];
+        const newItem = {...item, cart: this.jsonToStrMap(item.cart)};
+        this.setState(newItem);
+      }
     });
   }
 
@@ -52,27 +57,30 @@ class IndexPage extends Component {
 
 
   addToCart = (product, index) => {
-    this.setState(({ cart, count }) => {
+    this.setState(({ cart, count, sessionId }) => {
       const key = `${product.id}_${index}`;
       const prev = cart.get(key);
-      return {
+      const newItem = {
         count: count + 1,
         cart: cart.set(key, prev ? { ...prev, count: prev.count + 1 } : { product, index, count: 1 }),
       };
+      postCart(sessionId, newItem);
+      return newItem;
     })
   }
 
   offsetItemCount = (key, offset) => {
-    this.setState(({ cart, count }) => {
+    this.setState(({ cart, count, sessionId }) => {
 
       const item = cart.get(key);
       const newCount = item.count + offset;
       const newState = (newCount <= 0) ?
-        this.removeItem(cart, item.count, key) :
+        this.removeItem(cart, item.count, key, sessionId) :
         {
           cart: cart.set(key, { ...item, count: item.count + offset }),
           count: count + offset
         };
+        postCart(sessionId, newState);
       return newState;
     });
   }
@@ -86,17 +94,19 @@ class IndexPage extends Component {
   }
 
 
-  removeItem = (cart, count, key) => {
+  removeItem = (cart, count, key, sessionId) => {
     const item = cart.get(key);
     cart.delete(key);
-    return {
+    const newItem = {
       cart,
       count: count - item.count
     };
+    postCart(sessionId, newItem);
+    return newItem;
   }
 
   removeFromCart = (key) => {
-    this.setState(({ cart, count }) => this.removeItem(cart, count, key));
+    this.setState(({ cart, count, sessionId }) => this.removeItem(cart, count, key, sessionId));
   }
 
   render() {
