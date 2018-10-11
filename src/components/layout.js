@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
-import { Toolbar } from 'react-md'
+import { Toolbar, Autocomplete } from 'react-md'
 import './layout.scss'
 import { Cart } from './Cart'
 const Layout = ({ children, cart, count, cartManager }) => (
@@ -26,7 +26,7 @@ const Layout = ({ children, cart, count, cartManager }) => (
           ]}
         >
           <html lang="en" />
-          <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700%7CMaterial+Icons" rel="stylesheet"/>
+          <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700%7CMaterial+Icons" rel="stylesheet" />
         </Helmet>
         <Toolbar
           colored
