@@ -11,7 +11,7 @@ class ProductPreview extends Component {
         super(props);
         const { product } = props;
         this.state = {
-            index: Math.round(Math.random() * (product.features.length - 1)),
+            index: 0,
             product
         };
     }
@@ -30,15 +30,15 @@ class ProductPreview extends Component {
         return (
             <Cell onClick={this.onClick} size={4}>
                 <Card>
-                    <CardTitle className='title-text' 
-                    title={`${feature.color.toUpperCase()} ${product.name.toUpperCase()}`} 
-                    subtitle={`$${feature.price}`}>
+                    <CardTitle className='title-text'
+                        title={`${feature.color.toUpperCase()} ${product.name.toUpperCase()}`}
+                        subtitle={`$${feature.price}`}>
                     </CardTitle>
                     <Media>
                         <img src={feature.url}></img>
                     </Media><div>
-                    <FontIcon onClick={(e) => { e.stopPropagation(); addToCart(product, this.state.index) }}>control_point</FontIcon>
-                    <FontIcon onClick={(e) => { e.stopPropagation(); this.onClick(); }} style={{ float: 'right' }}>arrow_forward_ios</FontIcon>
+                        <FontIcon onClick={(e) => { e.stopPropagation(); addToCart(product, this.state.index) }}>control_point</FontIcon>
+                        <FontIcon onClick={(e) => { e.stopPropagation(); this.onClick(); }} style={{ float: 'right' }}>arrow_forward_ios</FontIcon>
                     </div>
                 </Card>
             </Cell>
