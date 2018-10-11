@@ -4,9 +4,9 @@ import { ProductPreview } from '../components/ProductPreview';
 import Layout from '../components/layout'
 import { GridList } from 'react-md';
 import './index.scss'
+const uuidv4 = require('uuid/v4');
 
 const { getCartBy, postCart } = require('../services/cart-service');
-const uuidv4 = require('uuid/v4');
 
 
 

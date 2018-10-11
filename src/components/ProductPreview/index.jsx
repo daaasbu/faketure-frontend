@@ -26,7 +26,7 @@ class ProductPreview extends Component {
         return (
             <Cell onClick={this.onClick} size={4}>
                 <Card>
-                    <CardTitle title={product.name}>
+                    <CardTitle className='md-card-title--small' title={product.name}>
                     </CardTitle>
                     <Media>
                         <img src={product.features[this.state.index].url}></img>
