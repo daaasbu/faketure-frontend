@@ -42,13 +42,15 @@ class Cart extends Component {
 
     render() {
         const { visible } = this.state;
-        const { cart, cartManager } = this.props;
+        const { count, cart, cartManager } = this.props;
         const items = cart ? this.convertMap(cart) : [];
         return (
             <div>
-                <Button raised onClick={this.show}>Cart</Button>
+                <Button raised onClick={this.show}>
+                    <FontIcon >shopping_cart</FontIcon>
+                    {count}</Button>
                 <DialogContainer
-                    width={800}
+                    width={400}
                     id="simple-list-dialog"
                     visible={visible}
                     title="Cart"
@@ -58,7 +60,7 @@ class Cart extends Component {
                     <List onClick={this.hide} onKeyDown={this.handleKeyDown}>
                         {
                             items.length === 0 ?
-                                (<Card style={{ maxWidth: 800 }} className="md-block-centered">
+                                (<Card style={{ width: 400 }} className="md-block-centered">
                                     <CardTitle
                                         title={'Empty Cart'}
                                     />
@@ -73,7 +75,7 @@ class Cart extends Component {
 
                                     <ListItem key={key} primaryText="" onClick={e => e.stopPropagation()}>
 
-                                        <Card style={{ maxWidth: 800 }} className="md-block-centered">
+                                        <Card style={{ width: 400 }} className="md-block-centered">
                                             <CardTitle
                                                 title={item.product.name}
                                                 subtitle={`${item.product.category} $${item.product.features[item.index].price} `}
@@ -82,10 +84,7 @@ class Cart extends Component {
                                             />
                                             <CardText>
                                                 <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet orci
-                                                    elit, sed eleifend nunc blandit auctor. Phasellus sodales vestibulum aliquet.
-                                                    Cras neque leo, congue eu risus non, lobortis sagittis dui. Curabitur auctor
-                                                    nibh at dignissim scelerisque.
+                                                    This is a product description.
                                          </p>
                                             </CardText>
                                             <CardActions>

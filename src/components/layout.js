@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 import { Toolbar } from 'react-md'
-import Header from './header'
 import './layout.scss'
 import { Cart } from './Cart'
-const Layout = ({ children, cart, cartManager }) => (
+const Layout = ({ children, cart, count, cartManager }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -33,7 +32,7 @@ const Layout = ({ children, cart, cartManager }) => (
           colored
           title={data.site.siteMetadata.title}
           nav={(
-            <Cart cart={cart} cartManager={cartManager}></Cart>
+            <Cart cart={cart} count={count} cartManager={cartManager}></Cart>
           )}></Toolbar>
 
         <div

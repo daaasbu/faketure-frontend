@@ -112,7 +112,7 @@ class IndexPage extends Component {
   render() {
 
     return (
-      <Layout cart={this.state.cart} cartManager={{ increment: this.incrementItemCount, decrement: this.decrementItemCount, remove: this.removeFromCart }}>
+      <Layout cart={this.state.cart} count={this.state.count} cartManager={{ increment: this.incrementItemCount, decrement: this.decrementItemCount, remove: this.removeFromCart }}>
         {
           <GridList size={3} container="pictures" component="section" className='examples-page'>
             {
