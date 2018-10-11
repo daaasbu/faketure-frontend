@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Button, FontIcon, Card, CardTitle, CardActions, Avatar, CardText, DialogContainer, List, ListItem } from 'react-md';
-import MaterialIcon, { colorPalette } from 'material-icons-react';
 
 class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = { visible: false };
-        this._mounted = false;    
+        this._mounted = false;
     }
 
     componentDidMount() {
@@ -16,7 +15,7 @@ class Cart extends Component {
     componentWillUnmount() {
         this._mounted = false;
     }
-    
+
     show = () => {
         this.setState({ visible: true });
     };
@@ -44,10 +43,10 @@ class Cart extends Component {
     render() {
         const { visible } = this.state;
         const { cart, cartManager } = this.props;
-        const items = this.convertMap(cart);
+        const items = cart ? this.convertMap(cart) : [];
         return (
             <div>
-                <Button raised onClick={this.show}>Cart {cart.count}</Button>
+                <Button raised onClick={this.show}>Cart</Button>
                 <DialogContainer
                     width={800}
                     id="simple-list-dialog"
@@ -90,9 +89,9 @@ class Cart extends Component {
                                          </p>
                                             </CardText>
                                             <CardActions>
-                                                <MaterialIcon onClick={(e) => { cartManager.remove(key); e.stopPropagation(); }} icon="delete" size='medium' />
-                                                <MaterialIcon onClick={(e) => { cartManager.increment(key); e.stopPropagation(); }} icon="control_point" size='medium' />
-                                                <MaterialIcon onClick={(e) => { cartManager.decrement(key); e.stopPropagation(); }} icon="remove_circle" size='medium' />
+                                                <FontIcon onClick={(e) => { cartManager.remove(key); e.stopPropagation(); }}>delete</FontIcon>
+                                                <FontIcon onClick={(e) => { cartManager.increment(key); e.stopPropagation(); }}>control_point</FontIcon>
+                                                <FontIcon onClick={(e) => { cartManager.decrement(key); e.stopPropagation(); }}>remove_circle</FontIcon>
                                                 <CardText>
                                                     {item.count}
                                                 </CardText>

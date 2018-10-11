@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 
 import CardTitle from "react-md/lib/Cards/CardTitle";
-import Button from "react-md/lib/Buttons";
-import Avatar from "react-md/lib/Avatars";
-import { Cell, Card, Media } from 'react-md';
-
-import CardText from "react-md/lib/Cards/CardText";
-import FontIcon from "react-md/lib/FontIcons";
-import { Link } from "gatsby";
-
-import MaterialIcon, { colorPalette } from 'material-icons-react';
+import { FontIcon, Cell, Card, Media } from 'react-md';
 
 class ProductPreview extends Component {
     constructor(props) {
@@ -39,7 +31,7 @@ class ProductPreview extends Component {
                     <Media>
                         <img src={product.features[this.state.index].url}></img>
                     </Media>
-                    <MaterialIcon onClick={(e) => { e.stopPropagation(); addToCart(product, this.state.index) }} icon="control_point" />
+                    <FontIcon onClick={(e) => { e.stopPropagation(); addToCart(product, this.state.index) }}>control_point</FontIcon>
                 </Card>
             </Cell>
         )

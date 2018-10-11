@@ -27,6 +27,7 @@ const Layout = ({ children, cart, cartManager }) => (
           ]}
         >
           <html lang="en" />
+          <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700%7CMaterial+Icons" rel="stylesheet"/>
         </Helmet>
         <Toolbar
           colored
